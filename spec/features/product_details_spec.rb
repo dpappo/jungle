@@ -17,14 +17,19 @@ RSpec.feature "Visitor navigates to home page", type: :feature, js: true do
     end
   end
 
-  scenario "They see all products" do
+  scenario "They visit an individual product" do
     # ACT
     visit root_path
 
+    save_screenshot "product_details_preclick_test.png"
+
+    click_on("Details", :match => :first)
+
+    page.has_css?('article.product-detail')
     # DEBUG
-    save_screenshot "home_page_test.png"
+    save_screenshot "product_details_test.png"
 
     # VERIFY
-    expect(page).to have_css 'article.product', count: 10
+    expect(page).to have_css 'article.product-detail'
   end
 end
